@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {
   StyleSheet,
@@ -5,28 +6,25 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import AuthRoutes from './routes';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 const App = () => {
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#312E38" />
-      <Text style={styles.title}>Aplicativo</Text>
-    </View>
+      <View style={styles.container}>
+        <AuthRoutes />
+      </View>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
  container: {
    flex: 1,
-   justifyContent: 'center',
-   alignItems: 'center',
    backgroundColor: '#312E38'
- },
- title: {
-   fontSize: 35,
-   fontWeight: 'bold',
-   color: '#eee',
  }
 });
 
