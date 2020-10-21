@@ -1,34 +1,69 @@
 import React from 'react';
 import logoImage from '../../assets/logo.png'
 
-import { Image, Text } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, View } from 'react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Title } from './styles';
+import { Container,
+  Title,
+  ForgotPassword,
+  ForgotPasswordText,
+  CreateAccountButton,
+  CreateAccountButtonText
+} from './styles';
+import Icon from 'react-native-vector-icons/Feather';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const SignIn: React.FC = () => {
   return (
-    <Container>
-      <Image source={logoImage} />
-      <Title>Faça seu login</Title>
+    <>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding': undefined}
+        enabled
+      >
+        <ScrollView
+          contentContainerStyle={{ flex: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Container>
+          <Image source={logoImage} />
 
-      <Input
-        name="email"
-        icon="mail"
-        placeholder="E-mail"
-      />
-      <Input
-        name="password"
-        icon="lock"
-        placeholder="Senha"
-      />
+          <View>
+            <Title>Faça seu login</Title>
+          </View>
 
-      <Button onPress={() => console.log("Ok")}>
-        Entrar
-      </Button>
-    </Container>
+          <Input
+            name="email"
+            icon="mail"
+            placeholder="E-mail"
+          />
+          <Input
+            name="password"
+            icon="lock"
+            placeholder="Senha"
+          />
+
+          <Button onPress={() => console.log("Ok")}>
+            Entrar
+          </Button>
+
+          <ForgotPassword onPress={() => console.log("Ok")}>
+            <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
+          </ForgotPassword>
+        </Container>
+
+        </ScrollView>
+
+      </KeyboardAvoidingView>
+
+     <CreateAccountButton>
+       <Icon name="log-in" size={20} color="#FF9000" />
+       <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+     </CreateAccountButton>
+    </>
   );
 };
 
