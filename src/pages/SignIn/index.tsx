@@ -13,7 +13,7 @@ import { Container,
   CreateAccountButtonText
 } from './styles';
 import Icon from 'react-native-vector-icons/Feather';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 import { Form } from '@unform/mobile';
@@ -22,6 +22,7 @@ import { FormHandles } from '@unform/core';
 const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
 
   const handleSignIn = useCallback((data: object) => {
@@ -51,12 +52,23 @@ const SignIn: React.FC = () => {
           onSubmit={handleSignIn}
         >
           <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            returnKeyType="next"
             name="email"
             icon="mail"
             placeholder="E-mail"
+            onSubmitEditing={() => {
+              passwordInputRef.current?.focus();
+            }}
           />
 
           <Input
+            ref={passwordInputRef}
+            secureTextEntry
+            onSubmitEditing={() => formRef.current?.submitForm()}
+            returnKeyType="send"
             name="password"
             icon="lock"
             placeholder="Senha"

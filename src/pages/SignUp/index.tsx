@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import logoImage from '../../assets/logo.png'
 
-import { Image, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, TextInput, View } from 'react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -20,6 +20,8 @@ import { Form } from '@unform/mobile';
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const emailInputRef = useRef<TextInput>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
 
@@ -47,20 +49,38 @@ const SignUp: React.FC = () => {
 
           <Form ref={formRef} onSubmit={handleSignUp}>
             <Input
+              autoCapitalize="words"
               name="name"
               icon="user"
               placeholder="Nome"
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                emailInputRef.current?.focus();
+              }}
             />
 
             <Input
+              ref={emailInputRef}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
               name="email"
               icon="mail"
               placeholder="E-mail"
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                passwordInputRef.current?.focus();
+              }}
             />
             <Input
+              ref={passwordInputRef}
+              secureTextEntry
+              textContentType="newPassword"
               name="password"
               icon="lock"
               placeholder="Senha"
+              returnKeyType="send"
+              onSubmitEditing={() => formRef.current?.submitForm()}
             />
 
             <Button onPress={() => formRef.current?.submitForm()}>
