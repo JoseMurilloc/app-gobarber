@@ -14,6 +14,7 @@ interface Credentials {
 
 interface AuthContextData {
   user: object;
+  loading: boolean;
 
   sigIn(credentials: Credentials): Promise<void>;
   sigOut(): void;
@@ -31,6 +32,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
 
   const [data, setData] = useState<AuthState>({} as AuthState);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
@@ -44,6 +46,8 @@ const AuthProvider: React.FC = ({ children }) => {
     }
 
     loadStorageData();
+
+    setLoading(false)
 
   }, [])
 
@@ -75,7 +79,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: data.user, sigIn, sigOut }}>
+    <AuthContext.Provider value={{ user: data.user, loading, sigIn, sigOut }}>
       { children }
     </AuthContext.Provider>
   );
