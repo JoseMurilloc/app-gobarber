@@ -8,15 +8,18 @@ import {
 } from 'react-native';
 import AuthRoutes from './routes';
 import { NavigationContainer } from '@react-navigation/native';
+import AppProvider from './hooks';
 
 
 const App = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#312E38" />
-      <View style={styles.container}>
-        <AuthRoutes />
-      </View>
+      <AppProvider>
+        <View style={styles.container}>
+          <AuthRoutes />
+        </View>
+      </AppProvider>
     </NavigationContainer>
   );
 };

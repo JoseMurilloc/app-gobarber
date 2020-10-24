@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useAuth } from '../../hooks/auth';
 
 interface SiginFormData {
   email: string;
@@ -30,6 +31,9 @@ const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+  const { sigIn, user } = useAuth();
+
+  console.log(user);
 
   const navigation = useNavigation();
 
@@ -58,7 +62,10 @@ const SignIn: React.FC = () => {
       * Chamando de fato a função enviando as credenciais para logar
       */
 
-    //  await sigIn({ email: data.email, password: data.password });
+      await sigIn({
+        email: data.email,
+        password: data.password
+      });
 
     //  history.push('/dashboard');
 
