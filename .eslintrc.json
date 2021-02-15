@@ -47,5 +47,6 @@
     "import/resolver": {
       "typescript": {}
     }
-  }
+  },
+  "eslint-no-use-before-define": "off"
 }
