@@ -1,13 +1,36 @@
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import Icon from 'react-native-vector-icons/Feather';
 
-import { Text } from 'react-native';
-
-import { Container } from './styles';
+import {
+  Container,
+  Title,
+  Description,
+  OkButton,
+  OkButtonText,
+} from './styles';
 
 const AppointmentCreated: React.FC = () => {
+  const { reset } = useNavigation();
+  const handleOkPress = useCallback(() => {
+    reset({
+      routes: [
+        { name: 'Dashboard' }
+      ],
+      index: 0
+    })
+  }, [reset])
+
   return (
     <Container>
-      <Text>AppointmentCreated</Text>
+      <Icon name="check" size={80} color="#04d361" />
+
+      <Title>Agendamento concluído com sucesso</Title>
+      <Description>Terça, no dia 14 de março de 2020 às 12:00h</Description>
+
+      <OkButton onPress={handleOkPress}>
+        <OkButtonText>Ok</OkButtonText>
+      </OkButton>
     </Container>
   );
 };
